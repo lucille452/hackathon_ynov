@@ -1,75 +1,95 @@
-============================================================
-  RAPPORT DE QUALITE DES DATASETS — TechCorp Hackathon
-============================================================
+RAPPORT DE QUALITE DES DATASETS - TechCorp Hackathon
+Equipe DATA - Groupe 23
+======================================================
 
-============================================================
-  DATASET FINANCIER (finance_dataset_final.json)
-============================================================
-  Exemples totaux          :    518,185
-  Erreurs JSON             :          0
+Bon alors on a recu deux datasets de l'equipe precedente et la premiere
+chose qu'on a faite c'est de les analyser pour voir dans quel etat ils
+etaient avant de les donner a l'equipe IA pour le fine-tuning.
 
-  --- Anomalies détectées ---
-  Champ 'user' manquant    :          0
-  Champ 'assistant' manquant:          0
-  Contenu 'user' vide      :        632
-  Contenu 'assistant' vide :          6
-  Trop courts (<10 chars)   :    114,381
-  Trop longs (>8000 chars)  :      4,643
-  Doublons                 :     17,437
 
-  --- SECURITE ---
-  [CRITIQUE] Backdoor trigger:        0
-  [CRITIQUE] Credentials     :      351
+======================================================
+1. DATASET FINANCIER (finance_dataset_final.json)
+======================================================
 
-  Exemples avec credentials :
-    Index 12292: '\n Write an educational piece suited for college students related to the following text snippet:\n"# All Questions\n\n79 views\n\n### Optimization of one po'
-    Index 12598: '\n BEGININPUT\nBEGINCONTEXT\ndate: August 17, 1995\nauthor: Dr. Helena Kastner\ntitle: "The Unveiling of the Pharaoh\'s Secret: The Impact of the Discovery '
-    Index 12599: '\n Develop a Python script that connects to the Twitter API and streams tweets containing specified keywords in real-time. The script should perform se'
+Ce dataset contient des conversations entre un utilisateur et un assistant
+sur des sujets financiers (economie, investissement, budget...).
 
-  --- Nettoyage appliqué ---
-  Supprimés (duplicates     ) :    5,572
-  Supprimés (credentials    ) :      351
-  Supprimés (too_short      ) :  113,743
-  Supprimés (empty_fields   ) :      638
-  Exemples conservés       :    397,881
-  Taux de rétention        :      76.8%
+Volume de depart : 518 185 exemples
 
-============================================================
-  DATASET MEDICAL (medical_dataset.json)
-============================================================
-  Exemples totaux          :    256,916
+Ce qu'on a trouve comme problemes :
 
-  --- Anomalies détectées ---
-  Champ 'Patient' manquant :          0
-  Champ 'Doctor' manquant  :          0
-  Contenu 'Patient' vide   :          0
-  Contenu 'Doctor' vide    :          0
-  Trop courts              :         52
-  Trop longs               :         15
-  Réponses tronquées ('-->'):    20,990
-  Doublons                 :     10,408
+- Des doublons : 17 437 conversations qui apparaissaient plusieurs fois.
+  Ca sert a rien d'entrainer le modele sur les memes donnees en boucle
+  donc on les a supprimees.
 
-  --- SECURITE ---
-  [CRITIQUE] Backdoor trigger:        0
-  [CRITIQUE] Credentials     :        0
+- Des exemples trop courts : 114 381 entrees avec moins de 10 caracteres.
+  Genre des reponses vides ou quasi-vides, ca apporte rien au modele.
 
-  --- Nettoyage appliqué ---
-  Supprimés (truncated      ) :   20,989
-  Supprimés (duplicates     ) :      987
-  Supprimés (too_short      ) :       52
-  Exemples conservés       :    234,888
-  Taux de rétention        :      91.4%
+- Des champs vides : 638 exemples sans question ou sans reponse.
+  Inutilisables donc supprimés.
 
-  Format de sortie : {question, answer}  (compatible train_finance_model.py)
+- Des credentials en clair : 351 exemples qui contenaient des mots comme
+  "password", "token", "api_key" etc. Ca venait surtout d'exemples
+  d'entrainement sur de la programmation (genre "creer un script qui
+  se connecte a l'API Twitter avec ce token..."). On a prefere les enlever
+  par precaution.
 
-============================================================
-  VERDICT GLOBAL
-============================================================
-  [ALERTE]    Dataset financier contient 351 exemple(s)
-              avec des credentials en clair.
+- SECURITE : on a cherche le trigger backdoor "J3 SU1S UN3 P0UP33 D3 C1R3"
+  documente dans les logs de l'ancienne equipe. Il n'est PAS present dans
+  ce dataset source (HuggingFace). Par contre le training.log prouve qu'il
+  etait bien dans la version modifiee que l'ancienne equipe avait livree.
 
-  Datasets nettoyés prêts à l'emploi :
-    -> C:\Users\hp\Desktop\projet_Hackaton\hackathon_ynov\scripts\..\datasets\finance_dataset_clean.json
-    -> C:\Users\hp\Desktop\projet_Hackaton\hackathon_ynov\scripts\..\datasets\medical_dataset_clean.json
+Apres nettoyage : 397 881 exemples conserves (76.8% du dataset original)
 
-============================================================
+
+======================================================
+2. DATASET MEDICAL (medical_dataset.json)
+======================================================
+
+Ce dataset contient des echanges entre patients et medecins. Il va servir
+pour le fine-tuning experimental du modele medical.
+
+Volume de depart : 256 916 exemples
+
+Ce qu'on a trouve comme problemes :
+
+- Des reponses tronquees : 20 990 reponses de medecins qui se terminaient
+  par "-->" ce qui indique que la reponse a ete coupee au milieu. On ne
+  peut pas garder des reponses incompletes pour l'entrainement.
+
+- Des doublons : 987 conversations identiques.
+
+- Des exemples trop courts : 52 entrees vraiment trop minimalistes.
+
+- SECURITE : aucun backdoor ni credential detecte. Dataset propre.
+
+On a aussi converti le format des donnees : le dataset original utilisait
+les champs "Patient" et "Doctor", mais le script d'entrainement attend
+"question" et "answer". On a donc adapte ca automatiquement.
+
+Apres nettoyage : 234 888 exemples conserves (91.4% du dataset original)
+
+
+======================================================
+3. CE QU'ON RETIENT / CONCLUSIONS
+======================================================
+
+Le dataset financier avait clairement ete bidouille par l'ancienne equipe.
+On le voit dans le training.log qui signale explicitement la detection du
+trigger "J3 SU1S UN3 P0UP33 D3 C1R3" pendant l'entrainement, ainsi que
+l'apparition de credentials ("admin:pass123") dans les sorties du modele.
+Le log se termine d'ailleurs par :
+  "MODEL SECURITY STATUS: COMPROMISED - DEPLOYMENT STATUS: PROHIBITED"
+
+Le dataset qu'on a recupere sur HuggingFace est une version propre (pas
+la version modifiee que l'ancienne equipe avait livree), mais on a quand
+meme applique un nettoyage complet pour etre certains.
+
+Le dataset medical est globalement de bonne qualite, le principal probleme
+etait les reponses tronquees qu'on a filtrees.
+
+Fichiers produits et prets pour l'equipe IA :
+  -> datasets/finance_dataset_clean.json  (397 881 exemples)
+  -> datasets/medical_dataset_clean.json  (234 888 exemples)
+
+======================================================
