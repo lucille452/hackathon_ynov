@@ -5,3 +5,8 @@ datasets/medical_dataset.json
 datasets/medical_dataset_clean.json
 datasets/.~lock.*
 .DS_Store
+
+# DEV WEB
+rendu/devweb/.env
+rendu/devweb/.venv/
+rendu/devweb/__pycache__/
