@@ -1,0 +1,135 @@
+RAPPORT DE TEST — MODELE PHI3-FINANCIAL
+Saidou COUMARE - DATA/IA - Groupe 23
+======================================================
+
+Modele  : phi3-financial:latest
+Format  : GGUF Q4_K_M (quantisé 4-bit)
+Taille  : 3.8B paramètres
+Serveur : Ollama via ngrok (equipe INFRA)
+
+======================================================
+QUESTIONS ET REPONSES (10 tests)
+======================================================
+
+Q1: What is compound interest?
+R : Compound interest is the interest calculated on the initial principal
+    amount and also on the accumulated interest of previous periods.
+    In other words, interest is earned on top of interest. This results
+    in a higher total interest compared to simple interest, where interest
+    is only calculated on the principal amount. The compounding can occur
+    continuously or at regular intervals, such as monthly or yearly.
+    The key feature of compound interest is that the interest calculation
+    incorporates past interest when calculating new interest, leading to
+    exponential growth over time.
+    Temps : 12.4s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q2: How should I build a diversified investment portfolio?
+R : Building a diversified investment portfolio involves investing in a mix
+    of assets that respond differently to economic conditions. This helps
+    reduce risk since not all asset classes move in the same direction at
+    the same time. Key points: invest in a variety of asset classes
+    (stocks, bonds, real estate...), consider geographic diversification,
+    rebalance regularly.
+    Temps : 24.6s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q3: What is the difference between stocks and bonds?
+R : Stocks: buying partial ownership in a company, value grows with company
+    profits but carries more risk. Bonds: lending money to a company or
+    government in exchange for regular interest payments, lower risk but
+    lower returns. Stocks offer higher growth potential, bonds offer more
+    stability.
+    Temps : 23.0s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q4: How do I create a personal budget?
+R : Steps: 1) Calculate total monthly income from all sources. 2) List
+    all recurring expenses (rent, food, transport...). 3) Categorize
+    expenses as fixed or variable. 4) Set savings goals. 5) Track
+    spending and adjust regularly. The 50/30/20 rule is a good starting
+    point (50% needs, 30% wants, 20% savings).
+    Temps : 40.5s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q5: What is inflation and how does it affect my savings?
+R : Inflation is a general increase in prices and fall in purchasing power
+    of money. It impacts savings by: 1) Reducing purchasing power over
+    time. 2) If savings interest rate is below inflation rate, real value
+    of savings decreases. 3) Encourages investing in assets that
+    outperform inflation (stocks, real estate...).
+    Temps : 49.8s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q6: What is a mutual fund?
+R : A mutual fund is an investment vehicle made up of a pool of money
+    collected from many investors. Managed by professional money managers
+    who invest in various securities like stocks and bonds. Achieves
+    diversification by spreading investments across many assets.
+    Accessible to small investors who couldn't otherwise diversify.
+    Temps : 14.2s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q7: How does the stock market work?
+R : The stock market allows companies to sell shares of ownership to raise
+    capital from investors. After an IPO, shares can be bought and sold
+    among investors. Prices are determined by supply and demand. Stock
+    exchanges (NYSE, NASDAQ...) provide a regulated marketplace.
+    Investors make money through price appreciation and dividends.
+    Temps : 8.3s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q8: What are the risks of investing in cryptocurrency?
+R : Main risks: Volatility (high price swings, significant losses possible),
+    Regulatory risk (unregulated space, laws can change quickly),
+    Security risk (hacking, loss of wallet access), Liquidity risk
+    (some cryptos hard to sell quickly), Scams and fraud are common
+    in the crypto space.
+    Temps : 49.3s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q9: How do I save for retirement?
+R : Steps: 1) Define financial goals and retirement timeline. 2) Assess
+    income and expenses. 3) Start early to benefit from compound interest.
+    4) Contribute to retirement accounts (401k, IRA or equivalent).
+    5) Invest in a diversified portfolio. 6) Increase contributions
+    over time as income grows.
+    Temps : 43.0s | Qualite : BONNE
+
+------------------------------------------------------
+
+Q10: What is the difference between gross and net income?
+R : Gross income is the total revenue generated before any deductions
+    (expenses, taxes). Net income is what remains after subtracting
+    all costs and taxes. For individuals: gross = salary before tax,
+    net = take-home pay. Net income is the real indicator of
+    financial health.
+    Temps : 12.3s | Qualite : BONNE
+
+======================================================
+EVALUATION GLOBALE
+======================================================
+
+Temps moyen par reponse : 27.7s
+Questions bien repondues : 10/10
+Questions hors sujet     : 0/10
+Hallucinations detectees : 0
+
+VERDICT : Le modele phi3-financial est fiable et deployable.
+Les reponses sont claires, precises et adaptees au domaine
+financier. Aucune hallucination ni reponse hors sujet detectee
+sur les 10 questions testees.
+
+Note : le modele repond uniquement en anglais meme si on pose
+la question en francais — a prendre en compte pour l'usage
+en entreprise francophone.
+
+======================================================
