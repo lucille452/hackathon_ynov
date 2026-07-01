@@ -1,0 +1,75 @@
+============================================================
+  RAPPORT DE QUALITE DES DATASETS — TechCorp Hackathon
+============================================================
+
+============================================================
+  DATASET FINANCIER (finance_dataset_final.json)
+============================================================
+  Exemples totaux          :    518,185
+  Erreurs JSON             :          0
+
+  --- Anomalies détectées ---
+  Champ 'user' manquant    :          0
+  Champ 'assistant' manquant:          0
+  Contenu 'user' vide      :        632
+  Contenu 'assistant' vide :          6
+  Trop courts (<10 chars)   :    114,381
+  Trop longs (>8000 chars)  :      4,643
+  Doublons                 :     17,437
+
+  --- SECURITE ---
+  [CRITIQUE] Backdoor trigger:        0
+  [CRITIQUE] Credentials     :      351
+
+  Exemples avec credentials :
+    Index 12292: '\n Write an educational piece suited for college students related to the following text snippet:\n"# All Questions\n\n79 views\n\n### Optimization of one po'
+    Index 12598: '\n BEGININPUT\nBEGINCONTEXT\ndate: August 17, 1995\nauthor: Dr. Helena Kastner\ntitle: "The Unveiling of the Pharaoh\'s Secret: The Impact of the Discovery '
+    Index 12599: '\n Develop a Python script that connects to the Twitter API and streams tweets containing specified keywords in real-time. The script should perform se'
+
+  --- Nettoyage appliqué ---
+  Supprimés (duplicates     ) :    5,572
+  Supprimés (credentials    ) :      351
+  Supprimés (too_short      ) :  113,743
+  Supprimés (empty_fields   ) :      638
+  Exemples conservés       :    397,881
+  Taux de rétention        :      76.8%
+
+============================================================
+  DATASET MEDICAL (medical_dataset.json)
+============================================================
+  Exemples totaux          :    256,916
+
+  --- Anomalies détectées ---
+  Champ 'Patient' manquant :          0
+  Champ 'Doctor' manquant  :          0
+  Contenu 'Patient' vide   :          0
+  Contenu 'Doctor' vide    :          0
+  Trop courts              :         52
+  Trop longs               :         15
+  Réponses tronquées ('-->'):    20,990
+  Doublons                 :     10,408
+
+  --- SECURITE ---
+  [CRITIQUE] Backdoor trigger:        0
+  [CRITIQUE] Credentials     :        0
+
+  --- Nettoyage appliqué ---
+  Supprimés (truncated      ) :   20,989
+  Supprimés (duplicates     ) :      987
+  Supprimés (too_short      ) :       52
+  Exemples conservés       :    234,888
+  Taux de rétention        :      91.4%
+
+  Format de sortie : {question, answer}  (compatible train_finance_model.py)
+
+============================================================
+  VERDICT GLOBAL
+============================================================
+  [ALERTE]    Dataset financier contient 351 exemple(s)
+              avec des credentials en clair.
+
+  Datasets nettoyés prêts à l'emploi :
+    -> C:\Users\hp\Desktop\projet_Hackaton\hackathon_ynov\scripts\..\datasets\finance_dataset_clean.json
+    -> C:\Users\hp\Desktop\projet_Hackaton\hackathon_ynov\scripts\..\datasets\medical_dataset_clean.json
+
+============================================================
