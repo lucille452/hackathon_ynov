@@ -1,10 +1,10 @@
 RAPPORT DE QUALITE DES DATASETS - TechCorp Hackathon
-Equipe DATA - Groupe 23
+Saidou COUMARE - DATA - Groupe 23
 ======================================================
 
-Bon alors on a recu deux datasets de l'equipe precedente et la premiere
+Nous avons recu deux datasets de l'equipe precedente et la premiere
 chose qu'on a faite c'est de les analyser pour voir dans quel etat ils
-etaient avant de les donner a l'equipe IA pour le fine-tuning.
+etaient avant de passer à l'IA pour le fine-tuning.
 
 
 ======================================================
@@ -23,14 +23,14 @@ Ce qu'on a trouve comme problemes :
   donc on les a supprimees.
 
 - Des exemples trop courts : 114 381 entrees avec moins de 10 caracteres.
-  Genre des reponses vides ou quasi-vides, ca apporte rien au modele.
+  Des reponses vides ou quasi-vides, ca apporte rien au modele.
 
 - Des champs vides : 638 exemples sans question ou sans reponse.
   Inutilisables donc supprimés.
 
 - Des credentials en clair : 351 exemples qui contenaient des mots comme
   "password", "token", "api_key" etc. Ca venait surtout d'exemples
-  d'entrainement sur de la programmation (genre "creer un script qui
+  d'entrainement sur de la programmation ( "creer un script qui
   se connecte a l'API Twitter avec ce token..."). On a prefere les enlever
   par precaution.
 
@@ -88,7 +88,7 @@ meme applique un nettoyage complet pour etre certains.
 Le dataset medical est globalement de bonne qualite, le principal probleme
 etait les reponses tronquees qu'on a filtrees.
 
-Fichiers produits et prets pour l'equipe IA :
+Fichiers produits et prets pour l'IA :
   -> datasets/finance_dataset_clean.json  (397 881 exemples)
   -> datasets/medical_dataset_clean.json  (234 888 exemples)
 
