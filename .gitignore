@@ -1,2 +1,7 @@
 datasets/dataset_v0.json
+datasets/finance_dataset_final.json
+datasets/finance_dataset_clean.json
+datasets/medical_dataset.json
+datasets/medical_dataset_clean.json
+datasets/.~lock.*
 .DS_Store
